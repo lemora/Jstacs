@@ -143,4 +143,9 @@ public class DummyEmission implements DifferentiableEmission {
 	public int getSizeOfEventSpace() {
 		return 0;
 	}
+
+	@Override
+	public boolean isNormalized() {
+		return true;
+	}
 }
