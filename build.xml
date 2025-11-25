@@ -8,15 +8,55 @@
 	
 	<property name="version" value="2.5" />
 	<property name="builddir" value="/Users/dev/Documents/jstacs_downloads/" />
-	<property name="cp" value="lib/BigWig.jar:lib/junit-4.5.jar:lib/htsjdk-2.5.0-4-gd683012-SNAPSHOT.jar:lib/numericalMethods.jar:lib/RClient-0.6.7.jar:lib/biojava-live.jar:lib/bytecode-1.9.0.jar:lib/core-1.9.0.jar:lib/xml-commons/pdf-transcoder.jar:lib/xml-commons/xmlgraphics-commons-1.5.jar:lib/Jama-1.0.3.jar:lib/xml-commons/batik-transcoder.jar:lib/xml-commons/batik-dom.jar:lib/xml-commons/batik-svggen.jar:lib/xml-commons/batik-svg-dom.jar:lib/xml-commons/batik-awt-util.jar:lib/xml-commons/batik-util.jar:lib/ssj/colt-1.2.0.jar:lib/ssj/ssj-3.3.1.jar:" />
+	<property name="core.src.dir" value="modules/core/src/main/java" />
+	<property name="core.resources.dir" value="modules/core/src/main/resources" />
+	<property name="projects.src.dir" value="modules/projects/src/main/java" />
+	<property name="projects.resources.dir" value="modules/projects/src/main/resources" />
+	<condition property="compile.classpath" value="${ant.compile.classpath}" else="lib/BigWig.jar:lib/junit-4.5.jar:lib/htsjdk-2.5.0-4-gd683012-SNAPSHOT.jar:lib/numericalMethods.jar:lib/RClient-0.6.7.jar:lib/biojava-live.jar:lib/bytecode-1.9.0.jar:lib/core-1.9.0.jar:lib/xml-commons/pdf-transcoder.jar:lib/xml-commons/xmlgraphics-commons-1.5.jar:lib/Jama-1.0.3.jar:lib/xml-commons/batik-transcoder.jar:lib/xml-commons/batik-dom.jar:lib/xml-commons/batik-svggen.jar:lib/xml-commons/batik-svg-dom.jar:lib/xml-commons/batik-awt-util.jar:lib/xml-commons/batik-util.jar:lib/ssj/colt-1.2.0.jar:lib/ssj/ssj-3.3.1.jar:">
+		<isset property="ant.compile.classpath" />
+	</condition>
+	<path id="compile.path">
+		<pathelement path="${compile.classpath}" />
+	</path>
+	<restrict id="dependency.jars">
+		<path refid="compile.path" />
+		<type type="file" />
+		<name name="*.jar" />
+	</restrict>
+	<macrodef name="project-jar">
+		<attribute name="name" />
+		<sequential>
+			<mkdir dir="${builddir}/projects/@{name}" />
+			<jar destfile="${builddir}/projects/@{name}/@{name}-${version}.jar">
+				<fileset dir="tempbin">
+					<include name="de/**" />
+					<include name="projects/@{name}/**" />
+				</fileset>
+			</jar>
+		</sequential>
+	</macrodef>
 	
-	<target name="javadoc">
-		<javadoc access="protected" author="true" classpath="${cp}"
+	<target name="prepare-libs">
+		<mkdir dir="${builddir}/lib" />
+		<copy todir="${builddir}/lib" flatten="true" force="true">
+			<resources refid="dependency.jars" />
+		</copy>
+		<fileset dir="${builddir}/lib" id="latexlet.jar.files" erroronmissingdir="false">
+			<include name="LaTeXlet-*.jar" />
+		</fileset>
+		<pathconvert property="calculated.latexlet.jar" refid="latexlet.jar.files" pathsep="" setonempty="false" />
+		<condition property="latexlet.taglet.jar" value="${calculated.latexlet.jar}" else="${builddir}/lib/latexlet-1.2f8.jar">
+			<isset property="calculated.latexlet.jar" />
+		</condition>
+	</target>
+	
+	<target name="javadoc" depends="prepare-libs">
+		<javadoc access="protected" author="true" classpath="${compile.classpath}"
 				destdir="${builddir}/jstacs-api" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false"
-				additionalparam="  -tagletpath lib/LaTeXlet-1.2f8.jar -taglet latexlet.InlineBlockLaTeXlet -taglet latexlet.BlockLaTeXlet -taglet latexlet.InlineLaTeXlet -taglet latexlet.CopyInheritedTaglet -encoding UTF-8 "
+				additionalparam="  -tagletpath ${latexlet.taglet.jar} -taglet latexlet.InlineBlockLaTeXlet -taglet latexlet.BlockLaTeXlet -taglet latexlet.InlineLaTeXlet -taglet latexlet.CopyInheritedTaglet -encoding UTF-8 "
 				packagenames="de.jstacs.*"
 				doctitle="Jstacs ${version} API Specification"
-				source="1.8" sourcepath="." splitindex="true" use="true" version="true" verbose="false">
+				source="1.8" sourcepath="${core.src.dir}:${projects.src.dir}" splitindex="true" use="true" version="true" verbose="false">
 			<link href="http://www.biojava.org/docs/api1.9.1/" />
 			<link href="http://docs.oracle.com/javase/7/docs/api/"/>
 			<link href="http://rforge.net/org/doc/"/>
@@ -43,89 +83,116 @@
 		<delete includeemptydirs="true">
 			<fileset dir="tempbin" includes="**/*" />
 		</delete>
-		<javac srcdir="de:projects" 
+		<javac srcdir="${core.src.dir}:${projects.src.dir}" 
 		       destdir="tempbin"
-		       classpath="${cp}"
-		       debug="on">
+		       classpath="${compile.classpath}"
+		       debug="on"
+		       includeantruntime="false">
 		</javac>
-		<copy todir="tempbin/projects">
-			<fileset dir="projects">
-				<exclude name="**/*.java" />
-			</fileset>
+		<copy todir="tempbin">
+			<fileset dir="${core.resources.dir}" erroronmissingdir="false" />
+		</copy>
+		<copy todir="tempbin">
+			<fileset dir="${projects.resources.dir}" erroronmissingdir="false" />
 		</copy>
 		<jar destfile="${builddir}/jstacs-${version}.jar">
 			<fileset dir="tempbin" />
 		</jar>
+		<project-jar name="cov2interval" />
+		<project-jar name="dimont" />
+		<project-jar name="dispom" />
+		<project-jar name="dream2016" />
+		<project-jar name="encodedream" />
+		<project-jar name="gemoma" />
+		<project-jar name="gemoseq" />
+		<project-jar name="methyl" />
+		<project-jar name="motifComp" />
+		<project-jar name="quickscan" />
+		<project-jar name="sigma" />
+		<project-jar name="slim" />
+		<project-jar name="talecorrect" />
+		<project-jar name="talen" />
+		<project-jar name="tals" />
+		<project-jar name="xanthogenomes" />
 		<delete includeemptydirs="true">
 			<fileset dir="tempbin" />
 		</delete>
 	</target>
 
 	
-	<target name="bin" depends="buildjar">
+	<target name="bin" depends="buildjar,prepare-libs">
 		<zip destfile="${builddir}/jstacs-bin-${version}.zip">
 			<zipfileset dir="${builddir}" includes="jstacs-${version}.jar" prefix="jstacs-bin-${version}" />
-			<zipfileset dir="lib" prefix="jstacs-bin-${version}/lib" excludes="LaTeXlet-1.1.jar" />
+			<zipfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib" excludes="LaTeXlet-1.1.jar" />
 			<zipfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-bin-${version}" />
-			<zipfileset dir="de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
+			<zipfileset dir="${core.resources.dir}/de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
 		</zip>
 		<tar destfile="${builddir}/jstacs-bin-${version}.tar.gz" compression="gzip" longfile="gnu">
 			<tarfileset dir="${builddir}" includes="jstacs-${version}.jar" prefix="jstacs-bin-${version}" />
-			<tarfileset dir="lib" prefix="jstacs-bin-${version}/lib"  excludes="LaTeXlet-*.jar" />
+			<tarfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib"  excludes="LaTeXlet-*.jar" />
 			<tarfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-bin-${version}" />
-			<tarfileset dir="de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
+			<tarfileset dir="${core.resources.dir}/de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
 		</tar>
 	</target>
 	
 	<target name="src">
 		<zip destfile="${builddir}/jstacs-source-${version}.zip">
-			<zipfileset dir="." includes="de/**,COPYING.txt,ReadMe.txt,projects/**,supplementary/**" prefix="jstacs-source-${version}" />
+			<zipfileset dir="${core.src.dir}" includes="de/**" prefix="jstacs-source-${version}/de" />
+			<zipfileset dir="${projects.src.dir}" includes="projects/**" prefix="jstacs-source-${version}/projects" />
+			<zipfileset dir="${projects.resources.dir}" includes="projects/**" prefix="jstacs-source-${version}/projects" />
+			<zipfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-source-${version}" />
+			<zipfileset dir="supplementary" includes="**/*" prefix="jstacs-source-${version}/supplementary" />
 		</zip>
 		<tar destfile="${builddir}/jstacs-source-${version}.tar.gz" compression="gzip" longfile="gnu">
-			<tarfileset dir="." includes="de/**,COPYING.txt,ReadMe.txt,projects/**,supplementary/**" prefix="jstacs-source-${version}" />
+			<tarfileset dir="${core.src.dir}" includes="de/**" prefix="jstacs-source-${version}/de" />
+			<tarfileset dir="${projects.src.dir}" includes="projects/**" prefix="jstacs-source-${version}/projects" />
+			<tarfileset dir="${projects.resources.dir}" includes="projects/**" prefix="jstacs-source-${version}/projects" />
+			<tarfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-source-${version}" />
+			<tarfileset dir="supplementary" includes="**/*" prefix="jstacs-source-${version}/supplementary" />
 		</tar>		
 	</target>
 	
-	<target name="Dispom">
-			<mkdir dir="tempbin" />
-			<delete includeemptydirs="true">
-				<fileset dir="tempbin" includes="**/*" />
-			</delete>
-			<javac srcdir="de:projects" 
+	<target name="Dispom" depends="prepare-libs">
+				<mkdir dir="tempbin" />
+				<delete includeemptydirs="true">
+					<fileset dir="tempbin" includes="**/*" />
+				</delete>
+				<javac srcdir="${core.src.dir}:${projects.src.dir}" 
 			       destdir="tempbin"
-			       classpath="${cp}"
-			       debug="on">
+			       classpath="${compile.classpath}"
+			       debug="on"
+			       includeantruntime="false">
 			</javac>
 			<mkdir dir="${builddir}/Dispom" />
-	        <jar destfile="${builddir}/Dispom/Dispom.jar" filesetmanifest="mergewithoutmain">
-	            <manifest>
-	                <attribute name="Main-Class" value="projects.dispom.Dispom"/>
-	                <attribute name="Class-Path" value="."/>
-	            </manifest>
-	            <fileset dir="tempbin"/>
-	            <zipfileset excludes="META-INF/*.SF" src="lib/biojava-live.jar"/>
-	            <zipfileset excludes="META-INF/*.SF" src="lib/bytecode.jar"/>
-	            <zipfileset excludes="META-INF/*.SF" src="lib/LaTeXlet-1.2f7.jar"/>
-	            <zipfileset excludes="META-INF/*.SF" src="lib/numericalMethods.jar"/>
-	            <zipfileset excludes="META-INF/*.SF" src="lib/RClient-0.6.7.jar"/>
-	        </jar>
-			<jar destfile="${builddir}/Dispom/DispomPredictor.jar" filesetmanifest="mergewithoutmain">
-			            <manifest>
-			                <attribute name="Main-Class" value="projects.dispom.DispomPredictor"/>
-			                <attribute name="Class-Path" value="."/>
-			            </manifest>
-			            <fileset dir="tempbin"/>
-			            <zipfileset excludes="META-INF/*.SF" src="lib/biojava-live.jar"/>
-			            <zipfileset excludes="META-INF/*.SF" src="lib/bytecode.jar"/>
-			            <zipfileset excludes="META-INF/*.SF" src="lib/LaTeXlet-1.2f7.jar"/>
-			            <zipfileset excludes="META-INF/*.SF" src="lib/numericalMethods.jar"/>
-			            <zipfileset excludes="META-INF/*.SF" src="lib/RClient-0.6.7.jar"/>
-			        </jar>
+		        <jar destfile="${builddir}/Dispom/Dispom.jar" filesetmanifest="mergewithoutmain">
+		            <manifest>
+		                <attribute name="Main-Class" value="projects.dispom.Dispom"/>
+		                <attribute name="Class-Path" value="."/>
+		            </manifest>
+		            <fileset dir="tempbin"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="biojava-live-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="rclient-*.jar" excludes="META-INF/*.SF"/>
+		        </jar>
+				<jar destfile="${builddir}/Dispom/DispomPredictor.jar" filesetmanifest="mergewithoutmain">
+				            <manifest>
+				                <attribute name="Main-Class" value="projects.dispom.DispomPredictor"/>
+				                <attribute name="Class-Path" value="."/>
+				            </manifest>
+				            <fileset dir="tempbin"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="biojava-live-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="rclient-*.jar" excludes="META-INF/*.SF"/>
+				        </jar>
 			<delete includeemptydirs="true">
 				<fileset dir="tempbin" />
 			</delete>
 			<zip destfile="${builddir}/Dispom1.2.zip">
-					<zipfileset dir="projects/dispom" includes="Dispom-ReadMe.html" />
+					<zipfileset dir="${projects.resources.dir}/projects/dispom" includes="Dispom-ReadMe.html" />
 					<zipfileset dir="." includes="COPYING.txt" />
 					<zipfileset dir="${builddir}/Dispom" includes="Dispom.jar,DispomPredictor.jar" />
 			</zip>

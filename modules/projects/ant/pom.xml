@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>de.jstacs</groupId>
+    <artifactId>jstacs</artifactId>
+    <version>2.5.0-SNAPSHOT</version>
+    <relativePath>../../../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>jstacs-projects-ant</artifactId>
+  <packaging>pom</packaging>
+  <name>Jstacs Projects Ant Packaging</name>
+  <description>Invokes the legacy Ant build to create fat CLI jars and distribution archives.</description>
+
+  <properties>
+    <ant.compile.classpath>${project.compileClasspathElements}</ant.compile.classpath>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>de.jstacs</groupId>
+      <artifactId>jstacs-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <exportAntProperties>true</exportAntProperties>
+        </configuration>
+        <executions>
+          <execution>
+            <id>package-with-ant</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <ant antfile="${project.basedir}/../../../build.xml" target="all" inheritAll="false">
+                  <property name="version" value="${project.version}"/>
+                  <property name="builddir" value="${project.build.directory}/ant-build"/>
+                </ant>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
