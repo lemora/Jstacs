@@ -15,10 +15,6 @@
   <name>Jstacs Projects Ant Packaging</name>
   <description>Invokes the legacy Ant build to create fat CLI jars and distribution archives.</description>
 
-  <properties>
-    <ant.compile.classpath>${project.compileClasspathElements}</ant.compile.classpath>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>de.jstacs</groupId>
@@ -45,9 +41,11 @@
             </goals>
             <configuration>
               <target>
+                <property name="ant.compile.classpath" refid="maven.runtime.classpath"/>
                 <ant antfile="${project.basedir}/../../../build.xml" target="all" inheritAll="false">
                   <property name="version" value="${project.version}"/>
                   <property name="builddir" value="${project.build.directory}/ant-build"/>
+                  <property name="ant.compile.classpath" value="${ant.compile.classpath}"/>
                 </ant>
               </target>
             </configuration>
