@@ -88,7 +88,6 @@ lib/LaTeXlet-1.2f8.jar de.jstacs.external latexlet 1.2f8
 lib/LaTeXlet-1.2f7.jar de.jstacs.external latexlet-legacy 1.2f7
 lib/xml-commons/pdf-transcoder.jar de.jstacs.external pdf-transcoder 1.0-beta2
 lib/ssj/optimization-1.3.jar de.jstacs.external optimization 1.3
-lib/log4j-1.2.15.jar log4j log4j 1.2.15
 lib/xml-commons/commons-io-1.3.1.jar org.apache.commons commons-io 1.3.1
 lib/xml-commons/commons-logging-1.0.4.jar commons-logging commons-logging 1.0.4
 lib/ssj/commons-math3-3.6.1.jar org.apache.commons commons-math3 3.6.1
