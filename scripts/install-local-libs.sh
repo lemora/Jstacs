@@ -109,7 +109,6 @@ lib/xml-commons/batik-transcoder.jar org.apache.xmlgraphics batik-transcoder 1.7
 lib/xml-commons/batik-util.jar org.apache.xmlgraphics batik-util 1.7
 lib/xml-commons/batik-xml.jar org.apache.xmlgraphics batik-xml 1.7
 lib/ssj/concurrent-1.3.4.jar concurrent concurrent 1.3.4
-lib/ssj/jcommon-1.0.15.jar org.jfree jcommon 1.0.15
 lib/ssj/ssj-3.3.1.jar umontreal.iro.lecuyer ssj 3.3.1
 EOF
 
