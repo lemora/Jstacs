@@ -18,7 +18,7 @@
     <dependency>
       <groupId>com.github.samtools</groupId>
       <artifactId>htsjdk</artifactId>
-      <version>2.5.0</version>
+      <version>4.3.0</version>
     </dependency>
     <dependency>
       <groupId>gov.nist.math</groupId>
@@ -199,26 +199,18 @@
       <artifactId>bigwig</artifactId>
       <version>1.0.0</version>
     </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>biojava-live</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>biojava-core</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>biojava-bytecode</artifactId>
-      <version>1.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>biojava-bytecode-legacy</artifactId>
-      <version>1.0.0</version>
-    </dependency>
+      <!-- https://mvnrepository.com/artifact/org.biojava/core -->
+      <dependency>
+          <groupId>org.biojava</groupId>
+          <artifactId>core</artifactId>
+          <version>1.9.7</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.biojava/bytecode -->
+      <dependency>
+          <groupId>org.biojava</groupId>
+          <artifactId>bytecode</artifactId>
+          <version>1.9.7</version>
+      </dependency>
     <dependency>
       <groupId>de.jstacs.external</groupId>
       <artifactId>numerical-methods</artifactId>
