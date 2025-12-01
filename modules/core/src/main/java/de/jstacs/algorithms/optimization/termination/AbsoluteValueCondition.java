@@ -37,6 +37,7 @@ import de.jstacs.utils.Time;
  * 
  * @deprecated use of the absolute value condition is not recommended and it may be removed in future releases
  */
+@Deprecated
 public class AbsoluteValueCondition extends AbstractTerminationCondition {
 
 	private double threshold;

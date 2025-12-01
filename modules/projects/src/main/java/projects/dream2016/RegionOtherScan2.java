@@ -203,7 +203,7 @@ public class RegionOtherScan2 {
 		if(seq.getLength()-j>=sl){
 			Sequence sub = seq.getSubSequence(j, sl);
 			if(j==0 && sl == seq.getLength()){
-				sub = sub.annotate(false,null);
+				sub = sub.annotate(false, (SequenceAnnotation[]) null);
 			}
 			
 			try{

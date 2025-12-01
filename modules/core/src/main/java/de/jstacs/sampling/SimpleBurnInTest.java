@@ -29,6 +29,7 @@ import de.jstacs.io.XMLParser;
  * 
  * @deprecated since this burn test ignore the data coming from the sampling, it might be problematic to use this test
  */
+@Deprecated
 public class SimpleBurnInTest implements BurnInTest {
 
 	private int burnInLength;
