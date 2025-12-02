@@ -107,7 +107,6 @@ lib/xml-commons/batik-swing.jar org.apache.xmlgraphics batik-swing 1.7
 lib/xml-commons/batik-transcoder.jar org.apache.xmlgraphics batik-transcoder 1.7
 lib/xml-commons/batik-util.jar org.apache.xmlgraphics batik-util 1.7
 lib/xml-commons/batik-xml.jar org.apache.xmlgraphics batik-xml 1.7
-lib/ssj/ssj-3.3.1.jar umontreal.iro.lecuyer ssj 3.3.1
 EOF
 
 cat >>"${pom}" <<'EOF'

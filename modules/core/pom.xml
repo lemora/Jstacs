@@ -185,9 +185,9 @@
       <version>1.5.6</version>
     </dependency>
     <dependency>
-      <groupId>umontreal.iro.lecuyer</groupId>
+      <groupId>ca.umontreal.iro.simul</groupId>
       <artifactId>ssj</artifactId>
-      <version>3.3.1</version>
+      <version>3.3.2</version>
     </dependency>
     <dependency>
       <groupId>com.github.rwl</groupId>
