@@ -86,7 +86,6 @@ lib/RClient-0.6.7.jar de.jstacs.external rclient 0.6.7
 lib/LaTeXlet-1.2f8.jar de.jstacs.external latexlet 1.2f8
 lib/LaTeXlet-1.2f7.jar de.jstacs.external latexlet-legacy 1.2f7
 lib/xml-commons/pdf-transcoder.jar de.jstacs.external pdf-transcoder 1.0-beta2
-lib/xml-commons/commons-logging-1.0.4.jar commons-logging commons-logging 1.0.4
 lib/xml-commons/xmlgraphics-commons-1.5.jar org.apache.xmlgraphics xmlgraphics-commons 1.5
 lib/xml-commons/xml-apis-ext.jar xml-apis xml-apis-ext 1.3.04
 lib/xml-commons/batik-anim.jar org.apache.xmlgraphics batik-anim 1.7
