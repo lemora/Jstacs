@@ -85,23 +85,6 @@ lib/numericalMethods.jar de.jstacs.external numerical-methods 1.0.0
 lib/RClient-0.6.7.jar de.jstacs.external rclient 0.6.7
 lib/LaTeXlet-1.2f8.jar de.jstacs.external latexlet 1.2f8
 lib/LaTeXlet-1.2f7.jar de.jstacs.external latexlet-legacy 1.2f7
-lib/xml-commons/batik-anim.jar org.apache.xmlgraphics batik-anim 1.7
-lib/xml-commons/batik-awt-util.jar org.apache.xmlgraphics batik-awt-util 1.7
-lib/xml-commons/batik-bridge.jar org.apache.xmlgraphics batik-bridge 1.7
-lib/xml-commons/batik-codec.jar org.apache.xmlgraphics batik-codec 1.7
-lib/xml-commons/batik-css.jar org.apache.xmlgraphics batik-css 1.7
-lib/xml-commons/batik-dom.jar org.apache.xmlgraphics batik-dom 1.7
-lib/xml-commons/batik-extension.jar org.apache.xmlgraphics batik-extension 1.7
-lib/xml-commons/batik-ext.jar org.apache.xmlgraphics batik-ext 1.7
-lib/xml-commons/batik-gvt.jar org.apache.xmlgraphics batik-gvt 1.7
-lib/xml-commons/batik-parser.jar org.apache.xmlgraphics batik-parser 1.7
-lib/xml-commons/batik-script.jar org.apache.xmlgraphics batik-script 1.7
-lib/xml-commons/batik-svg-dom.jar org.apache.xmlgraphics batik-svg-dom 1.7
-lib/xml-commons/batik-svggen.jar org.apache.xmlgraphics batik-svggen 1.7
-lib/xml-commons/batik-swing.jar org.apache.xmlgraphics batik-swing 1.7
-lib/xml-commons/batik-transcoder.jar org.apache.xmlgraphics batik-transcoder 1.7
-lib/xml-commons/batik-util.jar org.apache.xmlgraphics batik-util 1.7
-lib/xml-commons/batik-xml.jar org.apache.xmlgraphics batik-xml 1.7
 EOF
 
 cat >>"${pom}" <<'EOF'
