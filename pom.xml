@@ -27,6 +27,10 @@
       <id>bioviz</id>
       <url>https://nexus.bioviz.org/repository/maven-releases/</url>
     </repository>
+    <repository>
+      <id>ugent</id>
+      <url>https://genesis.ugent.be/maven2/</url>
+    </repository>
   </repositories>
 
   <build>
