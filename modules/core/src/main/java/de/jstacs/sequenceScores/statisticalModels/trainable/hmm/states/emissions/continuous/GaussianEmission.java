@@ -31,7 +31,7 @@ import de.jstacs.sequenceScores.statisticalModels.trainable.hmm.states.emissions
 import de.jstacs.utils.DoubleList;
 import de.jstacs.utils.IntList;
 import de.jstacs.utils.random.RandomNumberGenerator;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * Emission for continuous values following a Gaussian distribution. The Gaussian density is parameterized in terms of mean and (log) precision.
@@ -244,7 +244,7 @@ public class GaussianEmission implements DifferentiableEmission {
 			double val = mu - priorMu;
 			
 			return 0.5*( Math.log( ess/(2.0*Math.PI) ) + logPrecision  - ess*precision*val*val )
-						+ priorAlpha*Math.log( priorBeta ) - Gamma.logOfGamma( priorAlpha ) + priorAlpha*logPrecision - priorBeta*precision;
+						+ priorAlpha*Math.log( priorBeta ) - Gamma.logGamma( priorAlpha ) + priorAlpha*logPrecision - priorBeta*precision;
 		} else {
 			return 0;
 		}

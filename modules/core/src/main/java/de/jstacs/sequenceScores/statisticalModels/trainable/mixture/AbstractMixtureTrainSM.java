@@ -64,7 +64,7 @@ import de.jstacs.utils.random.FastDirichletMRGParams;
 import de.jstacs.utils.random.MRGParams;
 import de.jstacs.utils.random.MultivariateRandomGenerator;
 import de.jstacs.utils.random.SoftOneOfN;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This is the abstract class for all kinds of mixture models. It enables the
@@ -1288,9 +1288,9 @@ public abstract class AbstractMixtureTrainSM extends AbstractTrainableStatistica
 			for( int counter = 0; counter < dimension; counter++ ) {
 				sum += componentHyperParams[counter];
 				prior += ( componentHyperParams[counter] + parametrization.getCount() ) * logWeights[counter]
-							- Gamma.logOfGamma( componentHyperParams[counter] );
+							- Gamma.logGamma( componentHyperParams[counter] );
 			}
-			prior += Gamma.logOfGamma( sum );
+			prior += Gamma.logGamma( sum );
 		}
 		return prior;
 	}

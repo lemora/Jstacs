@@ -33,7 +33,7 @@ import de.jstacs.utils.IntList;
 import de.jstacs.utils.Normalisation;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This class implements the basic transition that allows to be trained using the viterbi or the Baum-Welch algorithm.
@@ -1282,9 +1282,9 @@ this(context,states,hyperParameters,weight,true);
 			for( int state = 0; state < hyperParameters.length; state++ ) {
 				sum += hyperParameters[state];
 				all += statistic[state];
-				res += Gamma.logOfGamma( statistic[state] ) - Gamma.logOfGamma( hyperParameters[state] );
+				res += Gamma.logGamma( statistic[state] ) - Gamma.logGamma( hyperParameters[state] );
 			}
-			res += Gamma.logOfGamma( sum ) - Gamma.logOfGamma( all );
+			res += Gamma.logGamma( sum ) - Gamma.logGamma( all );
 	        return res;
 		}
 		

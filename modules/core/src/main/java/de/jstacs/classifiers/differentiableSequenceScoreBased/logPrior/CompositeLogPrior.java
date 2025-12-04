@@ -23,7 +23,7 @@ import de.jstacs.algorithms.optimization.EvaluationException;
 import de.jstacs.sequenceScores.differentiable.DifferentiableSequenceScore;
 import de.jstacs.sequenceScores.statisticalModels.differentiable.DifferentiableStatisticalModel;
 import de.jstacs.utils.Normalisation;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This class implements a composite prior that can be used for DifferentiableStatisticalModel. The prior for each
@@ -94,9 +94,9 @@ public class CompositeLogPrior extends LogPrior
 				throw new IllegalArgumentException( "The ess of the function " + i + " is zero, but should be positive." );
 			}
 			fullEss += ess[i];
-			logGammaSum -= Gamma.logOfGamma(ess[i]);
+			logGammaSum -= Gamma.logGamma(ess[i]);
 		}
-		logGammaSum += Gamma.logOfGamma(fullEss);
+		logGammaSum += Gamma.logGamma(fullEss);
 		this.freeParameters = freeParameters;
 	}
 

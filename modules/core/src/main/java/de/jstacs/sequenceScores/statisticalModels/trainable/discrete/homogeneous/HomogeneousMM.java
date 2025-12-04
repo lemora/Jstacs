@@ -32,7 +32,7 @@ import de.jstacs.io.NonParsableException;
 import de.jstacs.io.XMLParser;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.DGTrainSMParameterSet;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.homogeneous.parameters.HomMMParameterSet;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This class implements homogeneous Markov models (hMM) of arbitrary order.
@@ -131,7 +131,7 @@ public class HomogeneousMM extends HomogeneousTrainSM {
 			for( ; counter1 < condProb.length; counter1++ ) {
 				anz1 = condProb[counter1].getNumberOfSpecificConstraints();
 				pot = ess / (double)anz1;
-				p += anz1 * ( Gamma.logOfGamma( powers[1] * pot ) / powers[1] - Gamma.logOfGamma( pot ) );
+				p += anz1 * ( Gamma.logGamma( powers[1] * pot ) / powers[1] - Gamma.logGamma( pot ) );
 				for( counter2 = 0; counter2 < anz1; counter2++ ) {
 					p += pot * condProb[counter1].getLnFreq( counter2 );
 				}

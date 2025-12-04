@@ -32,7 +32,7 @@ import de.jstacs.utils.DoubleList;
 import de.jstacs.utils.IntList;
 import de.jstacs.utils.Normalisation;
 import de.jstacs.utils.random.RandomNumberGenerator;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This class implements a skew normal like discrete truncated distribution.
@@ -515,7 +515,7 @@ public class SkewNormalLikeDurationDiffSM extends DurationDiffSM
 			priorC += -Math.log( Math.sqrt(2*Math.PI) * hyperMeanStdev ) + Math.log(delta);
 		}
 		if( trainPrecision ) {
-			priorC += hyperPrec1 * Math.log(hyperPrec2) - Gamma.logOfGamma( hyperPrec1 );
+			priorC += hyperPrec1 * Math.log(hyperPrec2) - Gamma.logGamma( hyperPrec1 );
 		}
 		if( trainSkew ) {
 			priorC -= Math.log( Math.sqrt( 2 * Math.PI ) * hyperSkewStdev );

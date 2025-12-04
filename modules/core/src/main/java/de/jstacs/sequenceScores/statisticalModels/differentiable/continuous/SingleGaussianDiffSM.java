@@ -15,7 +15,7 @@ import de.jstacs.sequenceScores.statisticalModels.differentiable.AbstractDiffere
 import de.jstacs.utils.DoubleList;
 import de.jstacs.utils.IntList;
 import de.jstacs.utils.random.RandomNumberGenerator;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 public class SingleGaussianDiffSM extends AbstractDifferentiableStatisticalModel {
 
@@ -140,7 +140,7 @@ public class SingleGaussianDiffSM extends AbstractDifferentiableStatisticalModel
 		double val = mu - priorMu;
 		
 		return 0.5*( Math.log( ess/(2.0*Math.PI) ) + logPrecision  - ess*precision*val*val )
-					+ priorAlpha*Math.log( priorBeta ) - Gamma.logOfGamma( priorAlpha ) + priorAlpha*logPrecision - priorBeta*precision;
+					+ priorAlpha*Math.log( priorBeta ) - Gamma.logGamma( priorAlpha ) + priorAlpha*logPrecision - priorBeta*precision;
 	}
 
 	public double getLogNormalizationConstant() {

@@ -32,7 +32,7 @@ import de.jstacs.utils.DoubleList;
 import de.jstacs.utils.IntList;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.FastDirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This scoring function implements a homogeneous Markov model of order zero
@@ -410,8 +410,8 @@ public class HomogeneousMM0DiffSM extends HomogeneousDiffSM {
 
 	private void computeConstantsOfLogPrior() {
 		int anz = params.getNumberOfSpecificConstraints();
-		logGammaSum = Gamma.logOfGamma(sumOfHyperParams) - anz
-				* Gamma.logOfGamma(sumOfHyperParams / (double) anz);
+		logGammaSum = Gamma.logGamma(sumOfHyperParams) - anz
+				* Gamma.logGamma(sumOfHyperParams / (double) anz);
 	}
 
 	/*

@@ -29,7 +29,7 @@ import de.jstacs.data.AlphabetContainer;
 import de.jstacs.data.DataSet;
 import de.jstacs.data.WrongAlphabetException;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.ConstraintManager;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This class can be used to learn the structure of any discrete model.
@@ -362,7 +362,7 @@ public class StructureLearner {
 					h[counter1][counter2] = all * ConstraintManager.getEntropy( constr[counter1][counter2] );
 					if( ess > 0 ) {
 						help = constr[counter1][counter2].getNumberOfSpecificConstraints();
-						h[counter1][counter2] -= help * Gamma.logOfGamma( ess / help );
+						h[counter1][counter2] -= help * Gamma.logGamma( ess / help );
 					}
 				} else {
 					h[counter1][counter2] = ConstraintManager.getLogGammaSum( constr[counter1][counter2], ess );
@@ -370,12 +370,12 @@ public class StructureLearner {
 			}
 		}
 		if( ess > 0 ) {
-			extra[0] = Gamma.logOfGamma( ess );
+			extra[0] = Gamma.logGamma( ess );
 		} else {
 			extra[0] = 0;
 		}
 		if( method == LearningType.BMA ) {
-			extra[0] -= Gamma.logOfGamma( all );
+			extra[0] -= Gamma.logGamma( all );
 		}
 		return h;
 	}

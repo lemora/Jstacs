@@ -33,7 +33,7 @@ import de.jstacs.io.XMLParser;
 import de.jstacs.utils.Normalisation;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * Class for the tree that represents the context of a {@link BNDiffSMParameter} in a
@@ -1375,9 +1375,9 @@ public class BNDiffSMParameterTree implements Cloneable, Storable {
 				for (int i = 0; i < pars.length; i++) {
 					alpha = pars[i].getPseudoCount();
 					hypSum += alpha;
-					val -= Gamma.logOfGamma(alpha);
+					val -= Gamma.logGamma(alpha);
 				}
-				val += Gamma.logOfGamma(hypSum);
+				val += Gamma.logGamma(hypSum);
 				return val;
 			}
 		}

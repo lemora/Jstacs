@@ -81,7 +81,6 @@ while read -r rel group artifact version; do
   [[ -z "${rel}" ]] && continue
   schedule_install "${rel}" "${group}" "${artifact}" "${version}"
 done <<'EOF'
-lib/numericalMethods.jar de.jstacs.external numerical-methods 1.0.0
 lib/RClient-0.6.7.jar de.jstacs.external rclient 0.6.7
 lib/LaTeXlet-1.2f8.jar de.jstacs.external latexlet 1.2f8
 lib/LaTeXlet-1.2f7.jar de.jstacs.external latexlet-legacy 1.2f7

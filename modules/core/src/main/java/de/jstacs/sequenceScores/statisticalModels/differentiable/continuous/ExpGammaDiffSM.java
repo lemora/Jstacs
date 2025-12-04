@@ -15,7 +15,7 @@ import de.jstacs.sequenceScores.statisticalModels.differentiable.continuous.gamm
 import de.jstacs.sequenceScores.statisticalModels.differentiable.continuous.gamma.NumericalIntegration;
 import de.jstacs.utils.DoubleList;
 import de.jstacs.utils.IntList;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 
 public class ExpGammaDiffSM extends AbstractDifferentiableStatisticalModel {
@@ -124,7 +124,7 @@ public class ExpGammaDiffSM extends AbstractDifferentiableStatisticalModel {
 	public double getLogPriorTerm() {
 		double val = 0;
 		for(int i=0;i<alphas.length;i++){
-			double temp = -Gamma.logOfGamma( alphas[i] )
+			double temp = -Gamma.logGamma( alphas[i] )
 			+ Math.log( betas[i] )*alphas[i] 
 			                              - mua[i]*betas[i] 
 			                                             + alphas[i]*Math.log( mug[i] );
@@ -179,7 +179,7 @@ public class ExpGammaDiffSM extends AbstractDifferentiableStatisticalModel {
 	private void precomputeNormalization(){
 		norm = 0;
 		for(int i=0;i<alphas.length;i++){
-			norm += alphas[i]*Math.log( betas[i] ) - Gamma.logOfGamma( alphas[i] );
+			norm += alphas[i]*Math.log( betas[i] ) - Gamma.logGamma( alphas[i] );
 			alphaNorms[i] = alphas[i]*Math.log( betas[i] ) - alphas[i]*digamma( alphas[i] );
 		}
 	}

@@ -34,7 +34,7 @@ import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.inhomogeneo
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.inhomogeneous.InhCondProb;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.inhomogeneous.MEM;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.inhomogeneous.MEMConstraint;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * The class manipulate some constraints.
@@ -340,10 +340,10 @@ public class ConstraintManager
 	public static double getLogGammaSum( Constraint c, double ess )
 	{
 		int i = 0, l = c.getNumberOfSpecificConstraints();
-		double pc = ess / (double) l, sum = l * Gamma.logOfGamma( pc );
+		double pc = ess / (double) l, sum = l * Gamma.logGamma( pc );
 		while( i < l )
 		{
-			sum -= Gamma.logOfGamma( c.getCount( i++ ) + pc );
+			sum -= Gamma.logGamma( c.getCount( i++ ) + pc );
 		}
 		return sum;
 	}

@@ -122,11 +122,6 @@
     </dependency>
     <dependency>
       <groupId>de.jstacs.external</groupId>
-      <artifactId>numerical-methods</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
       <artifactId>rclient</artifactId>
       <version>0.6.7</version>
     </dependency>

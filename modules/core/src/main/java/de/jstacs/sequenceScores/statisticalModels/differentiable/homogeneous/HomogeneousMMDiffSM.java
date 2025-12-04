@@ -39,7 +39,7 @@ import de.jstacs.utils.random.DiMRGParams;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
 import de.jstacs.utils.random.FastDirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This scoring function implements a homogeneous Markov model of arbitrary
@@ -769,11 +769,11 @@ public class HomogeneousMMDiffSM extends HomogeneousDiffSM {
 		for (int o = 0; o <= order; o++) {
 			for(int j=0;j<powers[ o + 1 ]; j+= powers[1]){
 				double temp = ToolBox.sum( j, j+powers[1], hyperParams[o] );
-				logGammaSum += Gamma.logOfGamma( temp );
+				logGammaSum += Gamma.logGamma( temp );
 				for(int k=0;k<powers[1];k++){
 					hyper = hyperParams[o][j+k];
 					if( hyper > 0 ){
-						logGammaSum -= Gamma.logOfGamma(hyper);
+						logGammaSum -= Gamma.logGamma(hyper);
 					}
 				}
 			}

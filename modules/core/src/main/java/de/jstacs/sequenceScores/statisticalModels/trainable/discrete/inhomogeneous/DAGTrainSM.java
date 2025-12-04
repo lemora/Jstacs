@@ -33,7 +33,7 @@ import de.jstacs.io.XMLParser;
 import de.jstacs.results.NumericalResultSet;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.ConstraintManager;
 import de.jstacs.sequenceScores.statisticalModels.trainable.discrete.inhomogeneous.parameters.IDGTrainSMParameterSet;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * The abstract class for <b>d</b>irected <b>a</b>cyclic <b>g</b>raphical models
@@ -169,7 +169,7 @@ public abstract class DAGTrainSM extends InhomogeneousDGTrainSM {
 				anz1 = constraints[counter1].getNumberOfSpecificConstraints();
 				pot = ess / (double)anz1;
 				anz2 = alphabetLength[constraints[counter1].getPosition( constraints[counter1].getMarginalOrder() - 1 )];
-				p += anz1 / anz2 * Gamma.logOfGamma( anz2 * pot ) - anz1 * Gamma.logOfGamma( pot );
+				p += anz1 / anz2 * Gamma.logGamma( anz2 * pot ) - anz1 * Gamma.logGamma( pot );
 				for( counter2 = 0; counter2 < anz1; counter2++ ) {
 					p += pot * constraints[counter1].getLnFreq( counter2 );
 				}

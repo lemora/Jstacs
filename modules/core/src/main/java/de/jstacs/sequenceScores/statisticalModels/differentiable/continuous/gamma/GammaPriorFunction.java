@@ -4,7 +4,7 @@ package de.jstacs.sequenceScores.statisticalModels.differentiable.continuous.gam
 import de.jstacs.algorithms.optimization.DifferentiableFunction;
 import de.jstacs.algorithms.optimization.DimensionException;
 import de.jstacs.algorithms.optimization.EvaluationException;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 import umontreal.ssj.util.Num;
 
 
@@ -23,7 +23,7 @@ public class GammaPriorFunction extends DifferentiableFunction implements Integr
 
 	public double evaluateSecondOrderDerivativeAt( double[] x, int dimension ) throws DimensionException, EvaluationException {
 		
-		double temp = Math.exp( nu*x[0]*Math.log( x[1] ) - nu*Gamma.logOfGamma( x[0] ) + nu*(chi1*x[0] + chi2*x[1]) );
+		double temp = Math.exp( nu*x[0]*Math.log( x[1] ) - nu*Gamma.logGamma( x[0] ) + nu*(chi1*x[0] + chi2*x[1]) );
 		
 		if(dimension == 0){
 			return temp * nu * ( nu*Math.pow( chi1 + Math.log( x[1] ) - Num.digamma( x[0] ), 2.0) - Num.trigamma( x[0] ) );
@@ -42,7 +42,7 @@ public class GammaPriorFunction extends DifferentiableFunction implements Integr
 
 	public double[] evaluateGradientOfFunction( double[] x ) throws DimensionException, EvaluationException {
 		
-		double temp = Math.exp( nu*x[0]*Math.log( x[1] ) - nu*Gamma.logOfGamma( x[0] ) + nu*(chi1*x[0] + chi2*x[1]) );
+		double temp = Math.exp( nu*x[0]*Math.log( x[1] ) - nu*Gamma.logGamma( x[0] ) + nu*(chi1*x[0] + chi2*x[1]) );
 		
 		double[] grad = new double[2];
 		
@@ -53,7 +53,7 @@ public class GammaPriorFunction extends DifferentiableFunction implements Integr
 	}
 
 	public double evaluateFunction( double[] x ) throws DimensionException, EvaluationException {
-		double currVal = -Gamma.logOfGamma( x[0] )
+		double currVal = -Gamma.logGamma( x[0] )
 								+ Math.log( x[1] )*x[0] 
 								+chi2*x[1] 
 								+ x[0]*chi1;

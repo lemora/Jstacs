@@ -51,7 +51,7 @@ import de.jstacs.utils.random.DiMRGParams;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
 import de.jstacs.utils.random.FastDirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 
 /**
@@ -749,14 +749,14 @@ public abstract class AbstractConditionalDiscreteEmission implements SamplingEmi
 
         	for (double i : hyper[j]) sum += i;
 
-        	res = Gamma.logOfGamma(sum);
+        	res = Gamma.logGamma(sum);
         	for(int i = 0; i < hyper.length; i++)
-        		res += Gamma.logOfGamma(statistic[j][i]) - Gamma.logOfGamma(hyper[j][i]);
+        		res += Gamma.logGamma(statistic[j][i]) - Gamma.logGamma(hyper[j][i]);
 
         	sum = 0;
         	for (double i : statistic[j]) sum += i;
 
-        	res -= Gamma.logOfGamma(sum);
+        	res -= Gamma.logGamma(sum);
         }
         return res;
     }

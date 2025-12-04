@@ -36,7 +36,7 @@ import de.jstacs.utils.IntList;
 import de.jstacs.utils.Normalisation;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * This scoring function implements a cyclic Markov model of arbitrary order and periodicity for any sequence length.
@@ -1011,16 +1011,16 @@ public class CyclicMarkovModelDiffSM extends AbstractVariableLengthDiffSM implem
 	{
 		double classESS = getESS(), sum = 0;
 		int A = (int)alphabets.getAlphabetLengthAt( 0 );
-		logGammaSum = Gamma.logOfGamma( classESS );
+		logGammaSum = Gamma.logGamma( classESS );
 		for( int f = 0; f < params.length; f++ ) {
-			 logGammaSum -= Gamma.logOfGamma( frameHyper[f] );
+			 logGammaSum -= Gamma.logGamma( frameHyper[f] );
 			 for( int o = 0; o < params[f].length; o++ ) {
 				 for( int a = 0, i = 0; i < params[f][o].length; i++ ) {
-					 logGammaSum -= Gamma.logOfGamma( hyper[f][o][i] );
+					 logGammaSum -= Gamma.logGamma( hyper[f][o][i] );
 					 sum += hyper[f][o][i];
 					 a++;
 					 if( a == A ) {
-						 logGammaSum = Gamma.logOfGamma( sum );
+						 logGammaSum = Gamma.logGamma( sum );
 						 sum = 0;
 						 a = 0;
 					 }

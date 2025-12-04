@@ -39,7 +39,7 @@ import de.jstacs.utils.random.DiMRGParams;
 import de.jstacs.utils.random.DirichletMRG;
 import de.jstacs.utils.random.DirichletMRGParams;
 import de.jstacs.utils.random.FastDirichletMRGParams;
-import de.jtem.numericalMethods.calculus.specialFunctions.Gamma;
+import org.apache.commons.math3.special.Gamma;
 
 /**
  * Class for a sparse local inhomogeneous mixture (Slim) model.
@@ -423,15 +423,15 @@ public class LimitedSparseLocalInhomogeneousMixtureDiffSM_higherOrder extends Ab
 	}
 		
 	private double unifGamma( double e, int anz ) {
-		return anz * Gamma.logOfGamma( e/anz ) - Gamma.logOfGamma( e );
+		return anz * Gamma.logGamma( e/anz ) - Gamma.logGamma( e );
 	}
 	
 	private double precomputePartLogGamma( int l ) {
 		double lg = 0;
 		for( int i = 0; i < componentMixtureParameters[l].length; i++ ) {
-			lg += Gamma.logOfGamma( e[i] )*componentMixtureParameters[l][i];
+			lg += Gamma.logGamma( e[i] )*componentMixtureParameters[l][i];
 		}
-		lg -= Gamma.logOfGamma(this.ess);
+		lg -= Gamma.logGamma(this.ess);
 		
 		for( int c = 0; c < componentMixtureParameters[l].length; c++ ) {
 			lg += unifGamma( e[c], ancestorMixtureParameters[l][c].length );
