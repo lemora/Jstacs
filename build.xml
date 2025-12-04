@@ -176,7 +176,8 @@
 		            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
-		            <zipgroupfileset dir="${builddir}/lib" includes="rclient-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="Rserve-*.jar" excludes="META-INF/*.SF"/>
+		            <zipgroupfileset dir="${builddir}/lib" includes="REngine-*.jar" excludes="META-INF/*.SF"/>
 		        </jar>
 				<jar destfile="${builddir}/Dispom/DispomPredictor.jar" filesetmanifest="mergewithoutmain">
 				            <manifest>
@@ -188,7 +189,8 @@
 				            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
-				            <zipgroupfileset dir="${builddir}/lib" includes="rclient-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="Rserve-*.jar" excludes="META-INF/*.SF"/>
+				            <zipgroupfileset dir="${builddir}/lib" includes="REngine-*.jar" excludes="META-INF/*.SF"/>
 				        </jar>
 			<delete includeemptydirs="true">
 				<fileset dir="tempbin" />
