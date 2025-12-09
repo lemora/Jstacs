@@ -131,16 +131,6 @@
       <version>1.9.7</version>
     </dependency>
     <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>latexlet</artifactId>
-      <version>1.2f8</version>
-    </dependency>
-    <dependency>
-      <groupId>de.jstacs.external</groupId>
-      <artifactId>latexlet-legacy</artifactId>
-      <version>1.2f7</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>

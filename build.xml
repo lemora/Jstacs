@@ -7,7 +7,7 @@
 	-->
 	
 	<property name="version" value="2.5" />
-	<property name="builddir" value="/Users/dev/Documents/jstacs_downloads/" />
+	<property name="builddir" value="${basedir}/build" />
 	<property name="core.src.dir" value="modules/core/src/main/java" />
 	<property name="core.resources.dir" value="modules/core/src/main/resources" />
 	<property name="projects.src.dir" value="modules/projects/src/main/java" />
@@ -43,19 +43,12 @@
 		<copy todir="${builddir}/lib" flatten="true" force="true">
 			<resources refid="dependency.jars" />
 		</copy>
-		<fileset dir="${builddir}/lib" id="latexlet.jar.files" erroronmissingdir="false">
-			<include name="LaTeXlet-*.jar" />
-		</fileset>
-		<pathconvert property="calculated.latexlet.jar" refid="latexlet.jar.files" pathsep="" setonempty="false" />
-		<condition property="latexlet.taglet.jar" value="${calculated.latexlet.jar}" else="${builddir}/lib/latexlet-1.2f8.jar">
-			<isset property="calculated.latexlet.jar" />
-		</condition>
 	</target>
 	
 	<target name="javadoc" depends="prepare-libs">
 		<javadoc access="protected" author="true" classpath="${compile.classpath}"
 				destdir="${builddir}/jstacs-api" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false"
-				additionalparam="  -tagletpath ${latexlet.taglet.jar} -taglet latexlet.InlineBlockLaTeXlet -taglet latexlet.BlockLaTeXlet -taglet latexlet.InlineLaTeXlet -taglet latexlet.CopyInheritedTaglet -encoding UTF-8 "
+				additionalparam="-encoding UTF-8"
 				packagenames="de.jstacs.*"
 				doctitle="Jstacs ${version} API Specification"
 				source="1.8" sourcepath="${core.src.dir}:${projects.src.dir}" splitindex="true" use="true" version="true" verbose="false">
@@ -125,13 +118,13 @@
 	<target name="bin" depends="buildjar,prepare-libs">
 		<zip destfile="${builddir}/jstacs-bin-${version}.zip">
 			<zipfileset dir="${builddir}" includes="jstacs-${version}.jar" prefix="jstacs-bin-${version}" />
-			<zipfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib" excludes="LaTeXlet-1.1.jar" />
+			<zipfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib" />
 			<zipfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-bin-${version}" />
 			<zipfileset dir="${core.resources.dir}/de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
 		</zip>
 		<tar destfile="${builddir}/jstacs-bin-${version}.tar.gz" compression="gzip" longfile="gnu">
 			<tarfileset dir="${builddir}" includes="jstacs-${version}.jar" prefix="jstacs-bin-${version}" />
-			<tarfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib"  excludes="LaTeXlet-*.jar" />
+			<tarfileset dir="${builddir}/lib" prefix="jstacs-bin-${version}/lib" />
 			<tarfileset dir="." includes="COPYING.txt,ReadMe.txt" prefix="jstacs-bin-${version}" />
 			<tarfileset dir="${core.resources.dir}/de/jstacs/utils" includes="de_jstacs_utils_UserTime.h,de_jstacs_utils_UserTime.c,libUserTime.jnilib,libUserTime.so,UserTime.dll" prefix="jstacs-bin-${version}/native" />
 		</tar>
@@ -174,7 +167,6 @@
 		            <fileset dir="tempbin"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="biojava-live-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
-		            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="Rserve-*.jar" excludes="META-INF/*.SF"/>
 		            <zipgroupfileset dir="${builddir}/lib" includes="REngine-*.jar" excludes="META-INF/*.SF"/>
@@ -187,7 +179,6 @@
 				            <fileset dir="tempbin"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="biojava-live-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="biojava-bytecode-legacy-*.jar" excludes="META-INF/*.SF"/>
-				            <zipgroupfileset dir="${builddir}/lib" includes="latexlet-legacy-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="numerical-methods-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="Rserve-*.jar" excludes="META-INF/*.SF"/>
 				            <zipgroupfileset dir="${builddir}/lib" includes="REngine-*.jar" excludes="META-INF/*.SF"/>
@@ -208,6 +199,9 @@
 	<target name="cleanjar" depends="buildjar">
 		<delete file="${builddir}/jstacs-${version}.jar" />
 	</target>
+
+	<!-- Helper target for Maven packaging without regenerating Javadoc -->
+	<target name="maven-package" depends="src,bin,cleanjar,Dispom,recipes" />
 	
 	<target name="recipes">
 		<exec executable="sh">
