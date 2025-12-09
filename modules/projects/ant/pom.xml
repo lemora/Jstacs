@@ -42,7 +42,7 @@
             <configuration>
               <target>
                 <property name="ant.compile.classpath" refid="maven.runtime.classpath"/>
-                <ant antfile="${project.basedir}/../../../build.xml" target="all" inheritAll="false">
+                <ant antfile="${project.basedir}/../../../build.xml" target="maven-package" inheritAll="false">
                   <property name="version" value="${project.version}"/>
                   <property name="builddir" value="${project.build.directory}/ant-build"/>
                   <property name="ant.compile.classpath" value="${ant.compile.classpath}"/>
