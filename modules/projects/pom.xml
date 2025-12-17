@@ -7,19 +7,24 @@
     <groupId>de.jstacs</groupId>
     <artifactId>jstacs</artifactId>
     <version>2.5.0-SNAPSHOT</version>
-    <relativePath>../../../pom.xml</relativePath>
+    <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>jstacs-projects-ant</artifactId>
-  <packaging>pom</packaging>
-  <name>Jstacs Projects Ant Packaging</name>
-  <description>Invokes the legacy Ant build to create fat CLI jars and distribution archives.</description>
+  <artifactId>jstacs-projects</artifactId>
+  <name>Jstacs Projects</name>
+  <description>CLI and helper projects built on top of Jstacs.</description>
 
   <dependencies>
     <dependency>
       <groupId>de.jstacs</groupId>
       <artifactId>jstacs-core</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -42,7 +47,7 @@
             <configuration>
               <target>
                 <property name="ant.compile.classpath" refid="maven.runtime.classpath"/>
-                <ant antfile="${project.basedir}/../../../build.xml" target="maven-package" inheritAll="false">
+                <ant antfile="${project.basedir}/../../build.xml" target="maven-package" inheritAll="false">
                   <property name="version" value="${project.version}"/>
                   <property name="builddir" value="${project.build.directory}/ant-build"/>
                   <property name="ant.compile.classpath" value="${ant.compile.classpath}"/>
@@ -51,6 +56,17 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <excludes>
+              <!-- Exclude gemoma tests for now as they depend on missing data-->
+              <exclude>projects/gemoma/JunitTest/**</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>

@@ -20,7 +20,7 @@
 
   <modules>
     <module>modules/core</module>
-    <module>modules/projects/ant</module>
+    <module>modules/projects</module>
   </modules>
 
   <repositories>

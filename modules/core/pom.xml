@@ -12,7 +12,7 @@
 
   <artifactId>jstacs-core</artifactId>
   <name>Jstacs Core</name>
-  <description>Legacy core packages compiled as a standalone Maven module.</description>
+  <description>Jstacs core package compiled as a standalone maven module.</description>
 
   <dependencies>
     <dependency>
