@@ -18,12 +18,12 @@ Building upon Jstacs, [JstacsFX](https://github.com/Jstacs/JstacsFX) visualizes 
 To build `Jstacs` or the projects jars, run one of the following:
 
 ```
-mvn -pl modules/core package                # creates modules/core/target/jstacs-core-<version>.jar
-mvn -pl modules/projects/ant -am package    # creates projects jars via ant
-mvn package                                 # builds both modules
+mvn -pl modules/core package            # creates modules/core/target/jstacs-core-<version>.jar
+mvn -pl modules/projects -am package    # creates projects jars via ant
+mvn package                             # builds both modules
 ```
 
-These commands also generate Javadocs at `target/site/apidocs` and runs unit tests unless skipped via `-DskipTests`.
+The command `mvn verify` also generates Javadocs at `target/site/apidocs` and runs unit tests unless skipped via `-DskipTests`.
 
 
 # Licensing information

@@ -65,7 +65,7 @@ public class GeMoMaCLITest {
 
 //own test implementation	
 	static String in = "projects/gemoma/JunitTest/given/";
-	static String out = "projects/gemoma/JunitTest/results";
+	static String out = "target/test-output/gemoma/JunitTest/results";
 
 	static void cliCheck( ArrayList<String> args, String[] given, String[] newResults ) throws Exception {
 		start++;
