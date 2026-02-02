@@ -669,7 +669,7 @@ public class SigmaHMM implements JstacsTool {
 		}else if(train == Training.BAUMWELCH){
 			trainingParameterSet = new BaumWelchParameterSet(nStarts, new SmallDifferenceOfFunctionEvaluationsCondition(1E-6), threads);
 		}else{
-			trainingParameterSet = new NumericalHMMTrainingParameterSet(nStarts, new SmallDifferenceOfFunctionEvaluationsCondition(1E-9), threads, Optimizer.CONJUGATE_GRADIENTS_PRP, 1E-9, 1E-6);
+			trainingParameterSet = new NumericalHMMTrainingParameterSet(nStarts, new SmallDifferenceOfFunctionEvaluationsCondition(1E-9), threads, Optimizer.CONJUGATE_GRADIENTS_PRP, 1E-9, 1E-6, NumericalHMMTrainingParameterSet.TrainingType.LIKELIHOOD, false);
 		}
 		
 		

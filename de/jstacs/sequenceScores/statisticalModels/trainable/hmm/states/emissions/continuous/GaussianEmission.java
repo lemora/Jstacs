@@ -373,5 +373,10 @@ public class GaussianEmission implements DifferentiableEmission {
 		precision = tt.precision;
 		logNorm = tt.logNorm;
 	}
+
+	@Override
+	public boolean isNormalized() {
+		return true;
+	}
 	
 }

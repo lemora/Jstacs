@@ -459,7 +459,7 @@ public class Cookbook {
 		
 		//create DHOMM
 		DifferentiableEmission[] emissions = new DifferentiableEmission[]{new DiscreteEmission( alphabet, 4.0 ),new DiscreteEmission( alphabet, new double[]{2.0,1.0,1.0,2.0} )};
-		NumericalHMMTrainingParameterSet trainingParameterSet = new NumericalHMMTrainingParameterSet( 3, new SmallDifferenceOfFunctionEvaluationsCondition( 1E-6 ), 2, Optimizer.QUASI_NEWTON_BFGS, 1E-6, 1 );
+		NumericalHMMTrainingParameterSet trainingParameterSet = new NumericalHMMTrainingParameterSet( 3, new SmallDifferenceOfFunctionEvaluationsCondition( 1E-6 ), 2, Optimizer.QUASI_NEWTON_BFGS, 1E-6, 1, NumericalHMMTrainingParameterSet.TrainingType.LIKELIHOOD, false );
 		DifferentiableHigherOrderHMM hmm = new DifferentiableHigherOrderHMM( trainingParameterSet, new String[]{"A","B"} , new int[]{0,1}, new boolean[]{true,true},emissions, true,4.0,
 				new TransitionElement( null, new int[]{0}, new double[]{4.0} ), 
 				new TransitionElement( new int[]{0}, new int[]{0,1}, new double[]{2.0,2.0} ),

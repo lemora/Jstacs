@@ -41,7 +41,7 @@ public class GeMoMaJUnitTest {
 		this.tr = tr;
 	}
 	
-	@Parameters(name="{index}: {0}")//TODO improve name
+	@Parameters//TODO improve name
 	public static ArrayList<Object[]> testCases() {
 		int maxSize = -1;
 		long timeOut=3600, maxTimeOut=60*60*24*7;

@@ -139,6 +139,12 @@ public class DifferentiableHigherOrderHMM extends HigherOrderHMM implements Samp
 		this(null, null, trainingParameterSet, name, null, emissionIdx, forward, emission, ess, null, te);
 	}
 	
+	public DifferentiableHigherOrderHMM( MaxHMMTrainingParameterSet trainingParameterSet, String[] name, int[] emissionIdx, boolean[] forward,
+			DifferentiableEmission[] emission, boolean likelihood, double ess, TransitionElement... te ) throws Exception {
+		this( trainingParameterSet, name, emissionIdx, forward, emission, ess, te );
+		score = likelihood ? Type.LIKELIHOOD : Type.VITERBI;
+	}
+	
 	public DifferentiableHigherOrderHMM( String type, int[][] statesGroups, MaxHMMTrainingParameterSet trainingParameterSet, String[] name, Filter[] filter, int[] emissionIdx, boolean[] forward,
 			DifferentiableEmission[] emission, double ess, int[] transIndex, TransitionElement... te ) throws Exception {
 		super( type, statesGroups, trainingParameterSet, name, filter, emissionIdx, forward, emission, transIndex, te );
